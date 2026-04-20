@@ -175,7 +175,7 @@ export default function Chatbot() {
                           : 'bg-white text-slate-900 rounded-bl-none border border-gray-200'
                       }`}
                     >
-                      <p className="text-sm">{message.text}</p>
+                      <p className="whitespace-pre-line text-sm">{message.text}</p>
                       <div className="mt-2 flex justify-end text-xs text-gray-400">
                         {message.isTyping ? <Loader2 className="h-3 w-3 animate-spin" /> : message.createdAt}
                       </div>
