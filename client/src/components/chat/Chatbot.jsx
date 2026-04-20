@@ -73,7 +73,9 @@ export default function Chatbot() {
         sessionId: sessionIdRef.current,
       });
 
-      const botText = response.data?.message || 'I’m sorry, I could not answer that right now.';
+      const botText =
+        response.data?.message ||
+        'I’m sorry, I could not answer that right now.';
 
       setMessages((current) =>
         current.map((msg) =>
@@ -124,9 +126,12 @@ export default function Chatbot() {
 
   return (
     <>
+      {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-2xl shadow-primary-600/30 transition hover:bg-primary-700 focus:outline-none ${isOpen ? 'hidden' : 'inline-flex'}`}
+        className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-2xl shadow-primary-600/30 transition hover:bg-primary-700 focus:outline-none ${
+          isOpen ? 'hidden' : 'inline-flex'
+        }`}
       >
         <MessageCircle className="h-6 w-6" />
       </button>
@@ -140,32 +145,55 @@ export default function Chatbot() {
             className="fixed bottom-6 right-6 z-50 w-[90vw] max-w-xl rounded-3xl border border-gray-200 bg-white shadow-2xl"
             style={{ height: '80vh', maxHeight: '720px' }}
           >
-            {/* HEADER */}
+            {/* Header */}
             <div className="flex items-center justify-between gap-3 rounded-t-3xl bg-primary-600 p-4 text-white">
-              <div>
-                <p className="font-semibold">Nourish Assistant</p>
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15">
+                  <MessageCircle className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-semibold">Nourish Assistant</p>
+                  <p className="text-xs text-white/80">
+                    Ask about donations, receiving food, NGOs, or rewards.
+                  </p>
+                </div>
               </div>
               <button onClick={() => setIsOpen(false)}>
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            {/* BODY */}
+            {/* Body */}
             <div className="flex h-full flex-col overflow-hidden">
-
-              {/* MESSAGES */}
+              
+              {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
                 {messages.map((message) => (
-                  <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className="max-w-[80%] rounded-3xl px-4 py-3 shadow-sm bg-white">
-                      
-                      {/* ✅ FIXED LINE */}
+                  <div
+                    key={message.id}
+                    className={`flex ${
+                      message.sender === 'user'
+                        ? 'justify-end'
+                        : 'justify-start'
+                    }`}
+                  >
+                    <div
+                      className={`max-w-[80%] rounded-3xl px-4 py-3 shadow-sm ${
+                        message.sender === 'user'
+                          ? 'bg-primary-600 text-white rounded-br-none'
+                          : 'bg-white text-slate-900 rounded-bl-none border border-gray-200'
+                      }`}
+                    >
+                      {/* ✅ FIXED TEXT FORMAT */}
                       <p className="whitespace-pre-line text-sm leading-6">
                         {message.text}
                       </p>
 
-                      <div className="text-xs text-gray-400 text-right mt-2">
-                        {message.createdAt}
+                      <div className="mt-2 flex items-center justify-end gap-1 text-[11px] text-slate-400">
+                        {message.isTyping ? (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        ) : null}
+                        <span>{message.createdAt}</span>
                       </div>
                     </div>
                   </div>
@@ -173,21 +201,48 @@ export default function Chatbot() {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* INPUT */}
+              {/* Input Section */}
               <div className="border-t border-gray-200 bg-white p-4 shrink-0 mb-2">
+                
+                {/* ✅ Quick Replies */}
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {quickReplies.map((reply) => (
+                    <button
+                      key={reply.label}
+                      type="button"
+                      onClick={() => handleQuickReply(reply.value)}
+                      className="rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-200"
+                    >
+                      {reply.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Input */}
                 <form onSubmit={handleSubmit} className="flex gap-2">
                   <input
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={(event) => setInput(event.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 rounded-full border px-4 py-2"
+                    className="min-h-[46px] flex-1 rounded-full border border-gray-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
                   />
-                  <button type="submit" className="bg-primary-600 text-white px-4 rounded-full">
-                    Send
+                  <button
+                    type="submit"
+                    disabled={!input.trim() || isTyping}
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary-600 text-white transition hover:bg-primary-700 disabled:cursor-not-allowed disabled:bg-primary-300"
+                  >
+                    {isTyping ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="h-5 w-5" />
+                    )}
                   </button>
                 </form>
-              </div>
 
+                {error ? (
+                  <p className="mt-2 text-xs text-red-600">{error}</p>
+                ) : null}
+              </div>
             </div>
           </motion.div>
         )}
