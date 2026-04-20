@@ -1,0 +1,221 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { MessageCircle, Send, X, Loader2 } from 'lucide-react';
+import api from '../../utils/api';
+
+const initialMessages = [
+  {
+    id: 'bot-welcome',
+    sender: 'bot',
+    text: "Hi there! I'm the NourishLink assistant. Ask me about donating food, receiving food, NGO support, or rewards.",
+    createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  },
+];
+
+const quickReplies = [
+  { label: 'Donate', value: 'How do I donate food on NourishLink?' },
+  { label: 'Receive', value: 'How can I receive food as a receiver?' },
+  { label: 'NGO Help', value: 'How can NGOs join and accept donations?' },
+  { label: 'Rewards', value: 'How do I earn reward points?' },
+];
+
+const formatTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+export default function Chatbot() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState(initialMessages);
+  const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState('');
+  const messagesEndRef = useRef(null);
+  const sessionIdRef = useRef(
+    localStorage.getItem('nourishlink_chat_session') || `session-${Date.now()}`
+  );
+
+  useEffect(() => {
+    localStorage.setItem('nourishlink_chat_session', sessionIdRef.current);
+  }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isTyping, isOpen]);
+
+  const appendMessage = (message) => setMessages((current) => [...current, message]);
+
+  const sendMessage = async (text) => {
+    if (!text.trim()) return;
+
+    setError('');
+
+    const userMessage = {
+      id: `user-${Date.now()}`,
+      sender: 'user',
+      text,
+      createdAt: formatTime(),
+    };
+
+    const placeholderId = `bot-typing-${Date.now()}`;
+    const botPlaceholder = {
+      id: placeholderId,
+      sender: 'bot',
+      text: 'Typing...',
+      createdAt: '',
+      isTyping: true,
+    };
+
+    appendMessage(userMessage);
+    appendMessage(botPlaceholder);
+    setIsTyping(true);
+
+    try {
+      const response = await api.post('/chat', {
+        message: text,
+        sessionId: sessionIdRef.current,
+      });
+
+      const botText = response.data?.message || 'I’m sorry, I could not answer that right now.';
+
+      setMessages((current) =>
+        current.map((msg) =>
+          msg.id === placeholderId
+            ? {
+                ...msg,
+                text: botText,
+                createdAt: formatTime(),
+                isTyping: false,
+              }
+            : msg
+        )
+      );
+    } catch (sendError) {
+      const fallback =
+        sendError.response?.data?.error ||
+        'Something went wrong. Please try again in a moment.';
+
+      setMessages((current) =>
+        current.map((msg) =>
+          msg.id === placeholderId
+            ? {
+                ...msg,
+                text: fallback,
+                createdAt: formatTime(),
+                isTyping: false,
+              }
+            : msg
+        )
+      );
+      setError(fallback);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!input.trim()) return;
+    await sendMessage(input.trim());
+    setInput('');
+  };
+
+  const handleQuickReply = async (value) => {
+    if (isTyping) return;
+    await sendMessage(value);
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-2xl shadow-primary-600/30 transition hover:bg-primary-700 focus:outline-none ${isOpen ? 'hidden' : 'inline-flex'}`}
+        aria-label="Open NourishLink chatbot"
+      >
+        <MessageCircle className="h-6 w-6" />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.95 }}
+            className="fixed bottom-6 right-6 z-50 w-[90vw] max-w-xl rounded-3xl border border-gray-200 bg-white shadow-2xl"
+            style={{ height: '80vh', maxHeight: '720px' }}
+          >
+            <div className="flex items-center justify-between gap-3 rounded-t-3xl bg-primary-600 p-4 text-white">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15">
+                  <MessageCircle className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-semibold">Nourish Assistant</p>
+                  <p className="text-xs text-white/80">Ask about donations, receiving food, NGOs, or rewards.</p>
+                </div>
+              </div>
+              <button onClick={() => setIsOpen(false)} className="rounded-full p-2 text-white/80 hover:text-white focus:outline-none">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="flex h-full flex-col overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] rounded-3xl px-4 py-3 shadow-sm ${
+                        message.sender === 'user'
+                          ? 'bg-primary-600 text-white rounded-br-none'
+                          : 'bg-white text-slate-900 rounded-bl-none border border-gray-200'
+                      }`}
+                    >
+                      <p className="whitespace-pre-wrap text-sm leading-6">{message.text}</p>
+                      <div className="mt-2 flex items-center justify-end gap-1 text-[11px] text-slate-400">
+                        {message.isTyping ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
+                        <span>{message.createdAt}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+
+              <div className="border-t border-gray-200 bg-white p-4">
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {quickReplies.map((reply) => (
+                    <button
+                      key={reply.label}
+                      type="button"
+                      onClick={() => handleQuickReply(reply.value)}
+                      className="rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-200"
+                    >
+                      {reply.label}
+                    </button>
+                  ))}
+                </div>
+
+                <form onSubmit={handleSubmit} className="flex gap-2">
+                  <input
+                    value={input}
+                    onChange={(event) => setInput(event.target.value)}
+                    placeholder="Type your message..."
+                    className="min-h-[46px] flex-1 rounded-full border border-gray-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!input.trim() || isTyping}
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary-600 text-white transition hover:bg-primary-700 disabled:cursor-not-allowed disabled:bg-primary-300"
+                  >
+                    {isTyping ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-5 w-5" />}
+                  </button>
+                </form>
+                {error ? <p className="mt-2 text-xs text-red-600">{error}</p> : null}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
