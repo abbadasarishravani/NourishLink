@@ -186,7 +186,7 @@ export default function Chatbot() {
               </div>
 
               {/* Input Section */}
-              <div className="border-t border-gray-200 bg-white p-4 shrink-0">
+              <div className="border-t border-gray-200 bg-white p-4 pb-6 shrink-0">
                 
                 {/* Quick Replies */}
                 <div className="mb-3 flex flex-wrap gap-2">
