@@ -129,7 +129,7 @@ export default function Chatbot() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-2xl shadow-primary-600/30 transition hover:bg-primary-700 focus:outline-none ${
+        className={`fixed bottom-8 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-2xl shadow-primary-600/30 transition hover:bg-primary-700 focus:outline-none ${
           isOpen ? 'hidden' : 'inline-flex'
         }`}
       >
@@ -142,7 +142,7 @@ export default function Chatbot() {
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-50 w-[90vw] max-w-xl rounded-3xl border border-gray-200 bg-white shadow-2xl"
+            className="fixed bottom-8 right-6 z-50 w-[90vw] max-w-xl rounded-3xl border border-gray-200 bg-white shadow-2xl"
             style={{ height: '80vh', maxHeight: '720px' }}
           >
             {/* Header */}
@@ -202,7 +202,7 @@ export default function Chatbot() {
               </div>
 
               {/* Input Section */}
-              <div className="border-t border-gray-200 bg-white p-4 shrink-0 mb-2">
+              <div className="border-t border-gray-200 bg-white p-4 shrink-0 mb-1">
                 
                 {/* ✅ Quick Replies */}
                 <div className="mb-3 flex flex-wrap gap-2">
