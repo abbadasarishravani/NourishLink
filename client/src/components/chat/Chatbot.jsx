@@ -124,10 +124,10 @@ export default function Chatbot() {
 
   return (
     <>
+      {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-2xl shadow-primary-600/30 transition hover:bg-primary-700 focus:outline-none ${isOpen ? 'hidden' : 'inline-flex'}`}
-        aria-label="Open NourishLink chatbot"
       >
         <MessageCircle className="h-6 w-6" />
       </button>
@@ -138,9 +138,9 @@ export default function Chatbot() {
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-50 w-[90vw] max-w-xl rounded-3xl border border-gray-200 bg-white shadow-2xl"
-            style={{ height: '80vh', maxHeight: '720px' }}
+            className="fixed bottom-6 right-6 z-50 w-[90vw] max-w-xl h-[80vh] max-h-[720px] flex flex-col rounded-3xl border border-gray-200 bg-white shadow-2xl"
           >
+            {/* Header */}
             <div className="flex items-center justify-between gap-3 rounded-t-3xl bg-primary-600 p-4 text-white">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15">
@@ -148,15 +148,20 @@ export default function Chatbot() {
                 </div>
                 <div>
                   <p className="font-semibold">Nourish Assistant</p>
-                  <p className="text-xs text-white/80">Ask about donations, receiving food, NGOs, or rewards.</p>
+                  <p className="text-xs text-white/80">
+                    Ask about donations, receiving food, NGOs, or rewards.
+                  </p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="rounded-full p-2 text-white/80 hover:text-white focus:outline-none">
+              <button onClick={() => setIsOpen(false)}>
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="flex h-full flex-col overflow-hidden">
+            {/* Chat Body */}
+            <div className="flex flex-1 flex-col overflow-hidden">
+              
+              {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
                 {messages.map((message) => (
                   <div
@@ -170,10 +175,9 @@ export default function Chatbot() {
                           : 'bg-white text-slate-900 rounded-bl-none border border-gray-200'
                       }`}
                     >
-                      <p className="whitespace-pre-wrap text-sm leading-6">{message.text}</p>
-                      <div className="mt-2 flex items-center justify-end gap-1 text-[11px] text-slate-400">
-                        {message.isTyping ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
-                        <span>{message.createdAt}</span>
+                      <p className="text-sm">{message.text}</p>
+                      <div className="mt-2 flex justify-end text-xs text-gray-400">
+                        {message.isTyping ? <Loader2 className="h-3 w-3 animate-spin" /> : message.createdAt}
                       </div>
                     </div>
                   </div>
@@ -181,36 +185,44 @@ export default function Chatbot() {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="border-t border-gray-200 bg-white p-4">
+              {/* Input Section */}
+              <div className="border-t border-gray-200 bg-white p-4 shrink-0">
+                
+                {/* Quick Replies */}
                 <div className="mb-3 flex flex-wrap gap-2">
                   {quickReplies.map((reply) => (
                     <button
                       key={reply.label}
-                      type="button"
                       onClick={() => handleQuickReply(reply.value)}
-                      className="rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-200"
+                      className="rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200"
                     >
                       {reply.label}
                     </button>
                   ))}
                 </div>
 
+                {/* Input */}
                 <form onSubmit={handleSubmit} className="flex gap-2">
                   <input
                     value={input}
-                    onChange={(event) => setInput(event.target.value)}
+                    onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your message..."
-                    className="min-h-[46px] flex-1 rounded-full border border-gray-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
+                    className="flex-1 rounded-full border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-200"
                   />
                   <button
                     type="submit"
                     disabled={!input.trim() || isTyping}
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary-600 text-white transition hover:bg-primary-700 disabled:cursor-not-allowed disabled:bg-primary-300"
+                    className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-600 text-white disabled:bg-gray-300"
                   >
-                    {isTyping ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-5 w-5" />}
+                    {isTyping ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="h-4 w-4" />
+                    )}
                   </button>
                 </form>
-                {error ? <p className="mt-2 text-xs text-red-600">{error}</p> : null}
+
+                {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
               </div>
             </div>
           </motion.div>
