@@ -37,7 +37,7 @@ export default function TopNav() {
                 <HeartHandshake className="h-5 w-5 text-primary-700 dark:text-primary-300" />
               </span>
               <div className="leading-tight">
-                <p className="font-extrabold tracking-tight text-slate-900 dark:text-white">Nourish Link</p>
+                <p className="font-extrabold tracking-tight text-slate-900 dark:text-white">NourishLink</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">Building a Hunger Free World</p>
               </div>
             </Link>

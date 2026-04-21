@@ -14,7 +14,7 @@ export default function PublicLayout() {
       <footer className="relative border-t border-black/5 dark:border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 text-sm text-slate-500 dark:text-slate-400">
           <p>
-            © {new Date().getFullYear()} Nourish Link. Built to reduce food waste and hunger.
+            © {new Date().getFullYear()} NourishLink. Built to reduce food waste and hunger.
           </p>
         </div>
       </footer>
