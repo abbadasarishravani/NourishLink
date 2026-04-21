@@ -38,24 +38,24 @@ const Register = () => {
         <div className="absolute inset-0 pattern-grid opacity-[0.35]" />
         <div className="relative h-full p-10 flex flex-col justify-between">
           <div className="glass ring-soft rounded-3xl p-6">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
-              <Sparkles className="h-4 w-4 text-primary-600 dark:text-primary-300" />
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-200">
+              <Sparkles className="h-4 w-4 text-primary-600 dark:text-primary-400" />
               Start making impact
             </p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Join as a donor or NGO volunteer.
             </h2>
-            <p className="mt-3 text-slate-600 dark:text-slate-300">
+            <p className="mt-3 text-slate-600 dark:text-slate-200">
               Donors earn points and badges. NGOs get map-based pickups and route planning.
             </p>
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-300">
+          <p className="text-sm text-slate-600 dark:text-slate-200">
             By creating an account you agree to use Nourish Link responsibly.
           </p>
         </div>
       </div>
 
-      <div className="p-6 sm:p-10 bg-white/40 dark:bg-slate-950/30 backdrop-blur-xl">
+      <div className="p-6 sm:p-10 bg-white/40 dark:bg-slate-900/60 backdrop-blur-xl">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,13 +64,13 @@ const Register = () => {
         >
           <div className="glass ring-soft rounded-3xl p-8">
             <div className="mb-6">
-              <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-primary-600/10 text-primary-700 dark:text-primary-300">
+              <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-primary-600/10 text-primary-700 dark:text-primary-400">
                 <UserPlus className="h-6 w-6" />
               </div>
               <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Create your account</h1>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-200">
                 Already have one?{' '}
-                <Link to="/login" className="font-semibold text-primary-700 hover:underline dark:text-primary-300">
+                <Link to="/login" className="font-semibold text-primary-700 hover:underline dark:text-primary-400">
                   Sign in
                 </Link>
               </p>
@@ -111,13 +111,13 @@ const Register = () => {
               </div>
 
               <label className="block">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-100">
                   {formData.role === 'NGO' ? 'Representative name' : 'Full name'}
                 </span>
                 <input
                   type="text"
                   required
-                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-white/10 dark:bg-white/5"
+                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -125,11 +125,11 @@ const Register = () => {
 
               {formData.role === 'NGO' ? (
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Organization name</span>
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-100">Organization name</span>
                   <input
                     type="text"
                     required
-                    className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-white/10 dark:bg-white/5"
+                    className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                     value={formData.organizationName}
                     onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
                   />
@@ -137,32 +137,32 @@ const Register = () => {
               ) : null}
 
               <label className="block">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Email</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-100">Email</span>
                 <input
                   type="email"
                   required
-                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-white/10 dark:bg-white/5"
+                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
               </label>
 
               <label className="block">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Password</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-100">Password</span>
                 <input
                   type="password"
                   required
-                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-white/10 dark:bg-white/5"
+                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />
               </label>
 
               <label className="block">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Phone (for SMS updates)</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-100">Phone (for SMS updates)</span>
                 <input
                   type="text"
-                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-white/10 dark:bg-white/5"
+                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 />

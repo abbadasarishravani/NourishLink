@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import Home from './pages/public/Home';
 import Login from './pages/public/Login';
 import Register from './pages/public/Register';
+import HelpCenter from './pages/public/HelpCenter';
 
 import NGODashboard from './pages/dashboards/NGODashboard';
 import AdminDashboard from './pages/dashboards/AdminDashboard';
@@ -33,6 +34,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/help-center" element={<HelpCenter />} />
               <Route path="/403" element={<Forbidden />} />
             </Route>
 

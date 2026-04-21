@@ -29,23 +29,23 @@ export default function TopNav() {
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl border-b border-black/5 dark:border-white/10">
+      <div className="bg-white/60 dark:bg-slate-900/80 backdrop-blur-xl border-b border-black/5 dark:border-slate-700">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link to="/" className="group flex items-center gap-2">
               <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-primary-500/15 to-emerald-500/15 ring-soft">
-                <HeartHandshake className="h-5 w-5 text-primary-700 dark:text-primary-300" />
+                <HeartHandshake className="h-5 w-5 text-primary-700 dark:text-primary-400" />
               </span>
               <div className="leading-tight">
                 <p className="font-extrabold tracking-tight text-slate-900 dark:text-white">NourishLink</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Building a Hunger Free World</p>
+                <p className="text-xs text-slate-500 dark:text-slate-300">Building a Hunger Free World</p>
               </div>
             </Link>
 
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleTheme}
-                className="inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-black/5 dark:text-slate-200 dark:hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-black/5 dark:text-slate-100 dark:hover:bg-slate-800"
               >
                 {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                 <span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span>
@@ -55,7 +55,7 @@ export default function TopNav() {
                 <>
                   <Link
                     to="/login"
-                    className="rounded-2xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-black/5 dark:text-slate-200 dark:hover:bg-white/10"
+                    className="rounded-2xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-black/5 dark:text-slate-100 dark:hover:bg-slate-800"
                   >
                     Log in
                   </Link>
@@ -70,14 +70,14 @@ export default function TopNav() {
                 <>
                   <Link
                     to={`/dashboard/${(user?.role || 'donor').toLowerCase()}`}
-                    className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-black/5 dark:text-slate-200 dark:hover:bg-white/10"
+                    className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-black/5 dark:text-slate-100 dark:hover:bg-slate-800"
                   >
                     <LayoutDashboard className="h-4 w-4" />
                     Dashboard
                   </Link>
                   <button
                     onClick={logout}
-                    className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-500/10"
+                    className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 dark:hover:bg-rose-500/20"
                   >
                     <LogOut className="h-4 w-4" />
                     Logout

@@ -36,24 +36,24 @@ const Login = () => {
         <div className="absolute inset-0 pattern-grid opacity-[0.35]" />
         <div className="relative h-full p-10 flex flex-col justify-between">
           <div className="glass ring-soft rounded-3xl p-6">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
-              <Sparkles className="h-4 w-4 text-primary-600 dark:text-primary-300" />
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-200">
+              <Sparkles className="h-4 w-4 text-primary-600 dark:text-primary-400" />
               Donate Food, Save Lives
             </p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              A modern logistics layer for hunger relief.
+              Logistics for hunger relief.
             </h2>
-            <p className="mt-3 text-slate-600 dark:text-slate-300">
-              Track pickup, verification, delivery — and see your impact grow with rewards.
+            <p className="mt-3 text-slate-600 dark:text-slate-200">
+              Track pickups, verifications, and deliveries. You earn rewards as your impact grows.
             </p>
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-300">
+          <p className="text-sm text-slate-600 dark:text-slate-200">
             Tip: Donors, NGOs, and Admins each get a tailored dashboard with role-based access.
           </p>
         </div>
       </div>
 
-      <div className="p-6 sm:p-10 bg-white/40 dark:bg-slate-950/30 backdrop-blur-xl">
+      <div className="p-6 sm:p-10 bg-white/40 dark:bg-slate-900/60 backdrop-blur-xl">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,13 +62,13 @@ const Login = () => {
         >
           <div className="glass ring-soft rounded-3xl p-8">
             <div className="mb-6">
-              <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-primary-600/10 text-primary-700 dark:text-primary-300">
+              <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-primary-600/10 text-primary-700 dark:text-primary-400">
                 <LogIn className="h-6 w-6" />
               </div>
               <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Welcome back</h1>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-200">
                 New here?{' '}
-                <Link to="/register" className="font-semibold text-primary-700 hover:underline dark:text-primary-300">
+                <Link to="/register" className="font-semibold text-primary-700 hover:underline dark:text-primary-400">
                   Create an account
                 </Link>
               </p>
@@ -82,11 +82,11 @@ const Login = () => {
 
             <form className="space-y-4" onSubmit={handleLogin}>
               <label className="block">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Email</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-100">Email</span>
                 <input
                   type="email"
                   required
-                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none ring-0 focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-white/10 dark:bg-white/5"
+                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none ring-0 focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -94,11 +94,11 @@ const Login = () => {
               </label>
 
               <label className="block">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Password</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-100">Password</span>
                 <input
                   type="password"
                   required
-                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none ring-0 focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-white/10 dark:bg-white/5"
+                  className="mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-sm outline-none ring-0 focus:border-primary-400 focus:ring-4 focus:ring-primary-500/15 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}

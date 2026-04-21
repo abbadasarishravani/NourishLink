@@ -15,7 +15,7 @@ function NavItem({ to, icon: Icon, label }) {
         'flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-semibold transition',
         active
           ? 'bg-primary-600 text-white shadow-sm shadow-primary-600/25'
-          : 'text-slate-700 hover:bg-black/5 dark:text-slate-200 dark:hover:bg-white/10',
+          : 'text-slate-700 hover:bg-black/5 dark:text-slate-100 dark:hover:bg-slate-800',
       ].join(' ')}
     >
       <Icon className="h-4 w-4" />
@@ -75,11 +75,11 @@ export default function DashboardLayout() {
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
           <aside className={['glass ring-soft rounded-3xl p-4 h-fit', open ? 'block' : 'hidden', 'lg:block'].join(' ')}>
             <div className="mb-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
                 {role} workspace
               </p>
               <p className="mt-1 text-lg font-extrabold text-slate-900 dark:text-white">{user?.name || 'Account'}</p>
-              <p className="text-sm text-slate-600 dark:text-slate-300 truncate">{user?.email}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-200 truncate">{user?.email}</p>
             </div>
             <div className="space-y-2">
               {nav.map((i) => (
