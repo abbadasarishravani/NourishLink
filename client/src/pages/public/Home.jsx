@@ -34,7 +34,7 @@ const Home = () => {
             >
               <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Share Food,<br className="hidden lg:block"/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-primary-700">Deliver Hope.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-primary-700"> Deliver Hope.</span>
               </h1>
               <p className="mt-6 text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0">
                 NourishLink connects food donors with nearby NGOs. By redistributing surplus food, we can get meals to the people who need them.
